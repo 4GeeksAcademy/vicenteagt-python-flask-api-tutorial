@@ -16,10 +16,12 @@ def hello_world():
 def add_new_todo():
     request_body = request.json
     todos.append(request_body)
-    return jsonify({
-       'message': 'Todos agregados con exito',
-       'new_todo': request_body
-    })
+    return jsonify(todos)
+
+@app.route('/todos/<int:position>', methods=['DELETE'])
+def delete_todo(position):
+    todos.pop(position)
+    return jsonify(todos)
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=3245, debug=True)
